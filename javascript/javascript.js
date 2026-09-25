@@ -1,14 +1,11 @@
 function getComputerChoice() {
     let computerChoice = Math.floor(Math.random() * 3 ) + 1
     computerChoice = selection(computerChoice)
-    console.log("The computer choice is: " + computerChoice) 
     return computerChoice
 }
 
-function getHumanChoice(num) {
-    let humanChoice = num
-    humanChoice = selection(humanChoice)
-    console.log("The human choice is: " + humanChoice)
+function getHumanChoice(button) {
+    humanChoice = selection(button)
     return humanChoice
 }
 
@@ -33,62 +30,129 @@ function selection(num) {
 
 function playground(human, computer) {
 
+    let text = ""
+    let points = []
+
     if (human === computer) {
-        console.log("It's a tie, they both chose: " + human)
-        return [1, 1]
+        text = "It's a tie, they both chose: " + human
+        points = [1, 1]
     }
 
     else if (human === "Rock" && computer === "Scissors") {
-        console.log("Won the human: " + human + " beat the " + computer)
-        return [3, 0]
+        text = "Won the human: " + human + " beat the " + computer
+        points = [3, 0]
     }
 
     else if (human === "Scissors" && computer === "Paper") {
-        console.log("Won the human: " + human + " beat the " + computer)
-        return [3, 0]
+        text = "Won the human: " + human + " beat the " + computer
+        points = [3, 0]
     }
 
     else if (human === "Paper" && computer === "Rock") {
-        console.log("Won the human: " + human + " beat the " + computer)
-        return [3, 0]
+        text = "Won the human: " + human + " beat the " + computer
+        points = [3, 0]
     }
 
     else {
-        console.log("Won the computer: " + computer + " beat the " + human)
-        return [0, 3]
+        text = "Won the computer: " + computer + " beat the " + human
+        points = [0, 3]
     }
+
+    const textHumanChoice = "The human choice is: " + human
+    const texComputerChoice = "The computer choice is: " + computer
+
+
+    const div = document.createElement("div")
+    const humanChoice_p = document.createElement("p")
+    const computerChoice_p = document.createElement("p")
+    const result = document.createElement("p")
+    humanChoice_p.textContent = textHumanChoice
+    computerChoice_p.textContent = texComputerChoice
+    result.textContent = text
+
+    div.appendChild(humanChoice_p)
+    div.appendChild(computerChoice_p)
+    div.appendChild(result)
+
+    document.body.appendChild(div)
+
+    return points
+
 }
 
 
-// function playgame() {
+function playgame(num) {
 
-//     let humanScore = 0
-//     let computerScore = 0
+    if (ronda < 5){
 
-//     for ( let i = 0; i < 5; i++ ){
+        let round = playground(getHumanChoice(num), getComputerChoice())
+        humanScore = humanScore + round[0]
+        computerScore = computerScore + round[1]
 
-//         let round = playground(getHumanChoice(), getComputerChoice())
-//         humanScore = humanScore + round[0]
-//         computerScore = computerScore + round[1]
-//         console.log("The human score is: " + humanScore)
-//         console.log("The computer score is: " + computerScore)   
-//     }
 
-// }
+        const marcador = document.createElement("div")
+        const humanScore_p = document.createElement("p")
+        const computerScore_p = document.createElement("p")
+        
+        humanScore_p.textContent = "The human score is: " + humanScore
+        computerScore_p.textContent = "The computer score is: " + computerScore
+
+        marcador.appendChild(humanScore_p)
+        marcador.appendChild(computerScore_p)
+
+        document.body.appendChild(marcador)
+
+        if (ronda === 4) {
+            const finish = document.createElement("div")
+            finish.textContent = "Acabo la partida"
+            document.body.appendChild(finish)
+
+            if (humanScore > computerScore) {
+                const winner = document.createElement("div")
+                winner.textContent = "Haz ganado la partida!"
+                document.body.appendChild(winner)
+            }
+
+            else {
+                const winner = document.createElement("div")
+                winner.textContent = "El computador ha ganado la partida!"
+                document.body.appendChild(winner)
+            }
+        }
+
+        else {
+            ronda++
+        }
+        
+    }
+
+    else {
+        const finish = document.createElement("div")
+        finish.textContent = "Acabo la partida"
+        document.body.appendChild(finish)
+    }
+}
 
 
 const rock_button = document.querySelector("#rock")
 const paper_button = document.querySelector("#paper")
 const scissors_button = document.querySelector("#scissors")
 
-rock_button.addEventListener("click", (e) => { 
-    playground(getHumanChoice(1), getComputerChoice())
+let humanScore = 0
+let computerScore = 0
+let ronda = 0
+
+rock_button.addEventListener("click", (e) => {
+    playgame(1)
+    
 })
 
 paper_button.addEventListener("click", (e) => { 
-    playground(getHumanChoice(2), getComputerChoice())
+    playgame(2)
 })
 
 scissors_button.addEventListener("click", (e) => { 
-    playground(getHumanChoice(3), getComputerChoice())
+    playgame(3)
 })
+
+
