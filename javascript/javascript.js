@@ -5,8 +5,8 @@ function getComputerChoice() {
     return computerChoice
 }
 
-function getHumanChoice() {
-    let humanChoice = Number(prompt("Choose some option:  1):Rock  -  2):Paper  -  3):Scissors"))
+function getHumanChoice(num) {
+    let humanChoice = num
     humanChoice = selection(humanChoice)
     console.log("The human choice is: " + humanChoice)
     return humanChoice
@@ -54,29 +54,41 @@ function playground(human, computer) {
     }
 
     else {
-        console.log("Won thee computer: " + computer + " beat the " + human)
+        console.log("Won the computer: " + computer + " beat the " + human)
         return [0, 3]
     }
 }
 
 
-function playgame() {
+// function playgame() {
 
-    let humanScore = 0
-    let computerScore = 0
+//     let humanScore = 0
+//     let computerScore = 0
 
-    for ( let i = 0; i < 5; i++ ){
+//     for ( let i = 0; i < 5; i++ ){
 
-        let round = playground(getHumanChoice(), getComputerChoice())
-        humanScore = humanScore + round[0]
-        computerScore = computerScore + round[1]
-        console.log("The human score is: " + humanScore)
-        console.log("The computer score is: " + computerScore)   
-    }
+//         let round = playground(getHumanChoice(), getComputerChoice())
+//         humanScore = humanScore + round[0]
+//         computerScore = computerScore + round[1]
+//         console.log("The human score is: " + humanScore)
+//         console.log("The computer score is: " + computerScore)   
+//     }
 
-}
-
-playgame()
+// }
 
 
+const rock_button = document.querySelector("#rock")
+const paper_button = document.querySelector("#paper")
+const scissors_button = document.querySelector("#scissors")
 
+rock_button.addEventListener("click", (e) => { 
+    playground(getHumanChoice(1), getComputerChoice())
+})
+
+paper_button.addEventListener("click", (e) => { 
+    playground(getHumanChoice(2), getComputerChoice())
+})
+
+scissors_button.addEventListener("click", (e) => { 
+    playground(getHumanChoice(3), getComputerChoice())
+})
